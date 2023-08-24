@@ -1,0 +1,12 @@
+{:duct.profile/base
+ {:duct.core/project-ns scrooge.api
+  
+  :scrooge.api.http/server
+  {:port 3000}}
+
+ :duct.profile/dev #duct/include "dev"
+ :duct.profile/local #duct/include "local"
+ :duct.profile/prod  {}
+ 
+ :duct.module/logging {}}
+

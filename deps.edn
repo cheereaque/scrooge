@@ -1,10 +1,12 @@
-{:deps {org.clojure/clojure {:mvn/version "1.11.1"}
-        duct/core {:mvn/version "0.8.0"}}
+{:aliases  {:dev {:extra-paths ["development/src"
+                                "development/resources"
+                                
+                                "bases/api/resources"]
 
- :aliases  {:dev {:extra-paths ["development/src"]
+                  :extra-deps {poly/api {:local/root "bases/api"}
 
-                  :extra-deps {poly/user {:local/root "components/user"}
-                               org.clojure/clojure {:mvn/version "1.11.1"}}}
+                               integrant/repl {:mvn/version "0.3.3"}
+                               eftest/eftest {:mvn/version "0.6.0"}}}
 
             :test {:extra-paths []}
 
