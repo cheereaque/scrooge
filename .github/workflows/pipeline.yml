@@ -1,0 +1,57 @@
+name: pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  outdated-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup backend environment
+      uses: ./.github/actions/setup-backend
+      with:
+        m2-cache-key: scrooge-outdated
+
+    - name: Check outdated dependencies
+      run: clojure -M:outdated
+
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup backend environment
+      uses: ./.github/actions/setup-backend
+      with:
+        m2-cache-key: scrooge-testing
+
+    - name: Run tests
+      run: clojure -X:dev:test
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Installing Clj-Kondo linter
+      shell: bash
+      run: |
+        curl -sLO https://raw.githubusercontent.com/clj-kondo/clj-kondo/master/script/install-clj-kondo
+        chmod +x install-clj-kondo
+        ./install-clj-kondo
+
+    - name: Lint project
+      run: >-
+        clj-kondo
+        --config ./.clj-kondo/config-ci.edn
+        --config-dir ./.clj-kondo
+        --parallel
+        --lint
+        ./bases/api/src
+        ./bases/api/test
+
