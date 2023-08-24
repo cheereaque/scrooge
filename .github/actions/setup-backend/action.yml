@@ -2,7 +2,7 @@ name: setup backend environment
 inputs:
   java-version:
     required: true
-    default: 'latest'
+    default: '20'
   clojure-version:
     required: true
     default: 'latest'
