@@ -11,21 +11,31 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: setting up JDK ${{ inputs.java-version }}
+    - name: Setting up JDK ${{ inputs.java-version }}
       uses: actions/setup-java@v3
       with:
         java-version: ${{ inputs.java-version }}
         distribution: 'temurin'
-    - name: installing Clojure CLI
+
+    - name: Installing Clojure CLI
       shell: bash
       run: |
         curl -L -O https://github.com/clojure/brew-install/releases/latest/download/linux-install.sh &&
         chmod +x linux-install.sh &&
         sudo ./linux-install.sh
+
+    - name: Installing Clj-Kondo linter
+      shell: bash
+      run: |
+        curl -sLO https://raw.githubusercontent.com/clj-kondo/clj-kondo/master/script/install-clj-kondo
+        chmod +x install-clj-kondo
+        ./install-clj-kondo
+
     - name: Check to see if dependencies should be cached
       if: ${{ contains(github.event.head_commit.message, '[ci nocache]') }}
       run: echo "Commit message includes [ci nocache]; dependencies will NOT be cached"
       shell: bash
+
     - name: Get M2 cache
       uses: actions/cache@v3
       if: ${{ !contains(github.event.head_commit.message, '[ci nocache]') }}

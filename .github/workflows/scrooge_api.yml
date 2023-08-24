@@ -14,17 +14,29 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Prepare back-end environment
+    - name: Setup backend environment
       uses: ./.github/actions/setup-backend
       with:
         m2-cache-key: api-tests
 
-    - name: check outdated dependencies
+    - name: Check outdated dependencies
       run: clojure -M:outdated
 
-    - name: install dependencies
+    - name: Install dependencies
       run: clojure -P -M:dev:test
 
-    - name: run tests
+    - name: Lint project
+      run: >-
+        clj-kondo
+        --config ./.clj-kondo/config-ci.edn
+        --config-dir ./.clj-kondo
+        --parallel
+        --lint
+        ./src
+        ./test
+        ./bases/api/src
+        ./bases/api/test
+
+    - name: Run tests
       run: clojure -X:dev:test
 
