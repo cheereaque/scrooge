@@ -19,8 +19,12 @@ jobs:
       with:
         m2-cache-key: api-tests
 
-    - name: Install dependencies
+    - name: check outdated dependencies
+      run: clojure -M:outdated
+
+    - name: install dependencies
       run: clojure -P -M:dev:test
-    - name: Run tests
+
+    - name: run tests
       run: clojure -X:dev:test
 

@@ -8,6 +8,6 @@
         metosin/reitit-sieppari {:mvn/version "0.7.0-alpha5"}
         ring/ring-jetty-adapter {:mvn/version "1.10.0"}}
 
-        
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}
+
