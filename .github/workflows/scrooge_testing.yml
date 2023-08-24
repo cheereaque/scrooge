@@ -1,7 +1,5 @@
 name: Scrooge testing
 
-run-name: testing ${{ github.event.head_commit.message }}
-
 on:
   push:
     branches: [ "main" ]
