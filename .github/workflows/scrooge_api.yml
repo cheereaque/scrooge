@@ -9,10 +9,16 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  api-tests:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+
+    - name: Prepare back-end environment
+      uses: ./.github/actions/prepare-backend
+      with:
+        m2-cache-key: api-tests
+
     - name: Install dependencies
       run: clojure -P -M:dev:test
     - name: Run tests
