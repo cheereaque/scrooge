@@ -24,13 +24,6 @@ runs:
         chmod +x linux-install.sh &&
         sudo ./linux-install.sh
 
-    - name: Installing Clj-Kondo linter
-      shell: bash
-      run: |
-        curl -sLO https://raw.githubusercontent.com/clj-kondo/clj-kondo/master/script/install-clj-kondo
-        chmod +x install-clj-kondo
-        ./install-clj-kondo
-
     - name: Check to see if dependencies should be cached
       if: ${{ contains(github.event.head_commit.message, '[ci nocache]') }}
       run: echo "Commit message includes [ci nocache]; dependencies will NOT be cached"

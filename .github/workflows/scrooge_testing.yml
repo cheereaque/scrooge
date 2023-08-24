@@ -1,4 +1,4 @@
-name: Scrooge testing
+name: Scrooge pipeline
 
 on:
   push:
@@ -7,6 +7,19 @@ on:
     branches: [ "main" ]
 
 jobs:
+  scrooge-outdated:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup backend environment
+      uses: ./.github/actions/setup-backend
+      with:
+        m2-cache-key: scrooge-outdated
+
+    - name: Check outdated dependencies
+      run: clojure -M:outdated
+
   scrooge-testing:
     runs-on: ubuntu-latest
     steps:
@@ -17,11 +30,21 @@ jobs:
       with:
         m2-cache-key: scrooge-testing
 
-    - name: Check outdated dependencies
-      run: clojure -M:outdated
+    - name: Run tests
+      run: clojure -X:dev:test
 
-    - name: Install dependencies
-      run: clojure -P -M:dev:test
+
+  scrooge-lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Installing Clj-Kondo linter
+      shell: bash
+      run: |
+        curl -sLO https://raw.githubusercontent.com/clj-kondo/clj-kondo/master/script/install-clj-kondo
+        chmod +x install-clj-kondo
+        ./install-clj-kondo
 
     - name: Lint project
       run: >-
@@ -32,7 +55,4 @@ jobs:
         --lint
         ./bases/api/src
         ./bases/api/test
-
-    - name: Run tests
-      run: clojure -X:dev:test
 
