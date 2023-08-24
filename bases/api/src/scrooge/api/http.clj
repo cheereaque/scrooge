@@ -1,7 +1,6 @@
 (ns scrooge.api.http
   (:require
     [integrant.core :as ig]
-    [reitit.ring :as ring]
     [reitit.http :as http]
     [reitit.interceptor.sieppari :as sieppari]
     [ring.adapter.jetty :as jetty]

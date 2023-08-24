@@ -1,6 +1,6 @@
-name: scrooge-api
+name: Scrooge testing
 
-run-name: api
+run-name: testing ${{ github.event.head_commit.message }}
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
     - name: Setup backend environment
       uses: ./.github/actions/setup-backend
       with:
-        m2-cache-key: api-tests
+        m2-cache-key: scrooge-testing
 
     - name: Check outdated dependencies
       run: clojure -M:outdated
@@ -32,8 +32,6 @@ jobs:
         --config-dir ./.clj-kondo
         --parallel
         --lint
-        ./src
-        ./test
         ./bases/api/src
         ./bases/api/test
 
