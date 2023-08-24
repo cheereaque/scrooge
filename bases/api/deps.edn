@@ -1,0 +1,13 @@
+{:paths ["src" "resources"]
+
+ :deps {duct/core {:mvn/version "0.8.0"}
+        duct/module.logging {:mvn/version "0.5.0"}
+        metosin/reitit-core {:mvn/version "0.7.0-alpha5"}
+        metosin/reitit-ring {:mvn/version "0.7.0-alpha5"}
+        metosin/reitit-http {:mvn/version "0.7.0-alpha5"}
+        metosin/reitit-sieppari {:mvn/version "0.7.0-alpha5"}
+        ring/ring-jetty-adapter {:mvn/version "1.10.0"}}
+
+        
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps {}}}}

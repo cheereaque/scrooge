@@ -1,0 +1,28 @@
+{:rules
+ {:indentation
+  {:indents
+   {defwidget [[:inner 0]],
+    cond-let [[:block 1]],
+    defcondition [[:inner 0]],
+    defevent [[:inner 0]],
+    mocked-client [[:inner 0]],
+    fnk [[:inner 0]],
+    defcomponent [[:inner 1]],
+    with-spy [[:inner 0]],
+    with-stub! [[:inner 0]],
+    with-stub [[:inner 0]],
+    #"^log/" [[:inner 0]],
+    map-with-either-key [[:inner 0]],
+    with-db-transaction [[:inner 0]],
+    letk [[:block 1]],
+    for-map [[:inner 0]],
+    defguard [[:inner 0]],
+    when-let* [[:block 1]],
+    defservice [[:inner 0] [:inner 1]],
+    with-scope [[:inner 0]],
+    defhandler [[:inner 0]],
+    send->basin [[:inner 0]]}},
+  :blank-lines {:max-consecutive 1, :padding-lines 1},
+  :vars {:enabled? false},
+  :namespaces {:enabled? false}
+  :comments {:enabled? false}}}
